@@ -6,34 +6,42 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const Header = () => {
   return (
-    <header className="bg-white shadow p-4 flex justify-between items-center">
+    <header className="p-4 flex justify-between items-center">
       {/* Search Bar */}
-      <div className="flex items-center flex-grow space-x-4 mr-4 ">
+      <div className="relative flex items-center flex-grow space-x-4 mr-4 mt-2">
         <input
           type="text"
           placeholder="Search your course"
-          className="border px-4 py-2 rounded w-full"
+          className="px-6 py-3 pl-12 rounded-xl w-full text-black"
+        />
+        <img
+          src="/search.png"
+          alt="Search Icon"
+          className="absolute left-1 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-200"
         />
       </div>
 
       {/* User Profile & Notifications */}
-      <div className="flex items-center space-x-4">
-        <button className="p-2">
-          <MessageIcon />
-        </button>
+      <div className="flex items-center space-x-8 mt-1">
         <button>
-          <NotificationsActiveIcon />
+          <img src="/Help.svg" alt="Help" className="ml-16" />
+        </button>
+        <button className="p-2">
+          <MessageIcon sx={{ color: "#6F767E", width: 24, height: 24 }} />
         </button>
         <button>
           <img src="/Settings.svg" alt="Settings" />
         </button>
-        <div className="flex items-center space-x-2">
+        <button>
+          <NotificationsActiveIcon sx={{ color: "#6F767E", width: 24, height: 24 }} />
+        </button>
+        <div className="flex items-center space-x-4">
           <img
             src="/User pic.svg"
             alt="Profile"
-            className="w-10 h-10 rounded-full"
+            className="w-12 h-12 rounded-full"
           />
-          <span>Adeline H. Dancy</span>
+          <span className="text-black font-bold text-lg">Adeline H. Dancy</span>
         </div>
       </div>
     </header>
