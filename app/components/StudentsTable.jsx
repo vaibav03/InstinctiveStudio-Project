@@ -35,11 +35,16 @@ const StudentsTable = () => {
     setEditStudent(null);
   };
 
-  // Helper function to format date
+
   const formatDate = (date) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(date).toLocaleDateString('en-US', options);
+    const optionsDate = { year: 'numeric', month: 'short', day: 'numeric' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    const formattedDate = new Date(date).toLocaleDateString('en-US', optionsDate);
+    const formattedTime = new Date(date).toLocaleTimeString('en-US', optionsTime);
+    return [formattedDate, formattedTime]; // Return both as an object
   };
+
+
 
   return (
     <>
@@ -85,14 +90,25 @@ const StudentsTable = () => {
                   ))}
                 </div>
               </td>
-              <td className="p-4">{formatDate(student.dateJoined)}</td>
-              <td className="p-4">{formatDate(student.lastLogin)}</td>
               <td className="p-4">
+                <div>
+                  <div>{formatDate(student.dateJoined)[0]}</div>
+                  <div className="text-sm text-gray-500">{formatDate(student.dateJoined)[1]}</div>
+                </div>
+              </td>
+              <td className="p-4">
+                <div>
+                  <div>{formatDate(student.lastLogin)[0]}</div>
+                  <div className="text-sm text-gray-500">{formatDate(student.lastLogin)[1]}</div>
+                </div>
+              </td>
+              <td className="p-7">
                 <span
                   className={`inline-block w-4 h-4 rounded-full ${student.status ? "bg-green-500" : "bg-red-500"
                     }`}
                 ></span>
               </td>
+
               <td className="p-4">
                 <button
                   className="bg-blue-500 text-white px-2 py-1 rounded mr-2"

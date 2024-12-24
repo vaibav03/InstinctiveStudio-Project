@@ -157,7 +157,7 @@ const App = () => {
               <div className="mb-4">
                 <label className="block text-sm font-medium">Last Login</label>
                 <input
-                  type="date"
+                  type="datetime-local"
                   name="lastLogin"
                   value={newStudent.lastLogin}
                   onChange={handleInputChange}
