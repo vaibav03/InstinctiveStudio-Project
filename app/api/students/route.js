@@ -58,8 +58,9 @@ export async function DELETE(request) {
     await prisma.student.delete({
       where: { id },
     });
-    return new Response(JSON.stringify({ message: 'Student deleted' }), { status: 204 });
+    return new Response(JSON.stringify({ message: 'Student deleted' }), { status: 200 });
   } catch (error) {
+    console.error('Error deleting student:', error);
     return new Response(JSON.stringify({ error: 'Error deleting student' }), { status: 500 });
   }
 }
