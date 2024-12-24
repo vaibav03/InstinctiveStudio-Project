@@ -16,9 +16,9 @@ export async function POST(request) {
   try {
     const newStudent = await prisma.student.create({
       data: {
-        name,
-        cohort,
-        courses,
+        name: name,
+        cohort: cohort,
+        courses: courses,
         dateJoined: new Date(dateJoined),
         lastLogin: new Date(lastLogin),
         status,
@@ -26,9 +26,11 @@ export async function POST(request) {
     });
     return new Response(JSON.stringify(newStudent), { status: 201 });
   } catch (error) {
+    console.error('Error adding student:', error);
     return new Response(JSON.stringify({ error: 'Error adding student' }), { status: 500 });
   }
 }
+
 
 export async function PUT(request) {
   const { id, name, cohort, courses, dateJoined, lastLogin, status } = await request.json();

@@ -35,6 +35,12 @@ const StudentsTable = () => {
     setEditStudent(null);
   };
 
+  // Helper function to format date
+  const formatDate = (date) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString('en-US', options);
+  };
+
   return (
     <>
       <table className="w-full bg-white rounded shadow">
@@ -50,13 +56,13 @@ const StudentsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {students.map((student, index) => (
+          {students?.map((student, index) => (
             <tr key={index} className="border-t">
               <td className="p-4">{student.name}</td>
               <td className="p-4">{student.cohort}</td>
               <td className="p-4 space-x-2">
-                <div className="flex flex-row space-x-2">
-                  {student.courses?.map((course, i) => (
+                <div className="flex flex-wrap space-x-2">
+                  {student.courses.map((course, i) => (
                     <span
                       key={i}
                       className="flex items-center bg-gray-100 px-2 py-1 rounded-lg font-bold"
@@ -79,8 +85,8 @@ const StudentsTable = () => {
                   ))}
                 </div>
               </td>
-              <td className="p-4">{student.dateJoined}</td>
-              <td className="p-4">{student.lastLogin}</td>
+              <td className="p-4">{formatDate(student.dateJoined)}</td>
+              <td className="p-4">{formatDate(student.lastLogin)}</td>
               <td className="p-4">
                 <span
                   className={`inline-block w-4 h-4 rounded-full ${student.status ? "bg-green-500" : "bg-red-500"
@@ -106,7 +112,6 @@ const StudentsTable = () => {
         </tbody>
       </table>
 
-      {/* Edit Student Modal */}
       {isEditModalOpen && (
         <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg w-1/3">

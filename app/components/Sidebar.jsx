@@ -1,10 +1,8 @@
-"use client";
-
 import React from "react";
 
 const Sidebar = () => {
   return (
-    <aside className="w-64 bg-white text-white h-screen flex flex-col">
+    <aside className="w-full md:w-64 bg-white text-white h-screen flex flex-col fixed left-0 top-0 md:relative md:block hidden">
       <div className="p-6">
         <h2 className="text-2xl font-bold">Quyl.</h2>
       </div>

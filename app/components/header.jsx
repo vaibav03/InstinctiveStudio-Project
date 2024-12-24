@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <header className="bg-white shadow p-4 flex justify-between items-center">
       {/* Search Bar */}
-      <div className="flex items-center flex-grow space-x-4 mr-4 ">
+      <div className="flex items-center flex-grow space-x-4 mr-4">
         <input
           type="text"
           placeholder="Search your course"
@@ -24,16 +24,18 @@ const Header = () => {
         <button>
           <NotificationsActiveIcon />
         </button>
-        <button>
-          <img src="/Settings.svg" alt="Settings" />
+        <button className="hidden md:block">
+          <img src="/Settings.svg" alt="Settings" className="w-6 h-6" />
         </button>
+
+        {/* User Profile */}
         <div className="flex items-center space-x-2">
           <img
             src="/User pic.svg"
             alt="Profile"
             className="w-10 h-10 rounded-full"
           />
-          <span>Adeline H. Dancy</span>
+          <span className="hidden sm:inline">Adeline H. Dancy</span>
         </div>
       </div>
     </header>

@@ -16,6 +16,8 @@ const App = () => {
     lastLogin: '',
     status: false,
   });
+  const [selectedAY, setSelectedAY] = useState("AY 2024-25");
+  const [selectedClass, setSelectedClass] = useState("CBSE 9");
 
   const fetchStudents = useStore((state) => state.fetchStudents);
   const addStudent = useStore((state) => state.addStudent);
@@ -29,26 +31,52 @@ const App = () => {
     setNewStudent((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleCheckboxChange = (value) => {
+    setNewStudent((prev) => {
+      const courses = prev.courses.includes(value)
+        ? prev.courses.filter((course) => course !== value)
+        : [...prev.courses, value];
+      return { ...prev, courses };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addStudent(newStudent);
-    setIsModalOpen(false); 
+    // Ensure status is properly parsed
+    const formattedStudent = {
+      ...newStudent,
+      status: newStudent.status === "true" || newStudent.status === true,
+    };
+    await addStudent(formattedStudent);
+    setIsModalOpen(false);
     setNewStudent({ name: '', cohort: '', courses: [], dateJoined: '', lastLogin: '', status: false });
   };
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
+
+      <Sidebar className="block lg:hidden" />
+
       <div className="flex-1 flex flex-col bg-gray-100">
         <Header />
         <main className="p-6">
           <div className="flex justify-between items-center mb-4">
             <div className="flex space-x-4">
-              <select className="border px-4 py-2 rounded bg-[#E9EDF1] ">
+              <select
+                className="border px-4 py-2 rounded bg-[#E9EDF1]"
+                value={selectedAY}
+                onChange={(e) => setSelectedAY(e.target.value)}
+              >
                 <option>AY 2024-25</option>
+                <option>AY 2023-24</option>
               </select>
-              <select className="border px-4 py-2 rounded bg-[#E9EDF1]">
+              <select
+                className="border px-4 py-2 rounded bg-[#E9EDF1]"
+                value={selectedClass}
+                onChange={(e) => setSelectedClass(e.target.value)}
+              >
                 <option>CBSE 9</option>
+                <option>CBSE 10</option>
               </select>
             </div>
             <button
@@ -92,14 +120,28 @@ const App = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium">Courses</label>
-                <input
-                  type="text"
-                  name="courses"
-                  value={newStudent.courses}
-                  onChange={handleInputChange}
-                  className="w-full border px-4 py-2 rounded"
-                  placeholder="Enter comma-separated courses"
-                />
+                <div className="flex space-x-4">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      value="CBSE 9 Math"
+                      checked={newStudent.courses.includes("CBSE 9 Math")}
+                      onChange={() => handleCheckboxChange("CBSE 9 Math")}
+                      className="mr-2"
+                    />
+                    CBSE 9 Math
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      value="CBSE 9 Science"
+                      checked={newStudent.courses.includes("CBSE 9 Science")}
+                      onChange={() => handleCheckboxChange("CBSE 9 Science")}
+                      className="mr-2"
+                    />
+                    CBSE 9 Science
+                  </label>
+                </div>
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium">Date Joined</label>
@@ -132,8 +174,8 @@ const App = () => {
                   className="w-full border px-4 py-2 rounded"
                   required
                 >
-                  <option value={false}>Inactive</option>
-                  <option value={true}>Active</option>
+                  <option value="false">Inactive</option>
+                  <option value="true">Active</option>
                 </select>
               </div>
               <div className="flex justify-between">
