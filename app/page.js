@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
+import Header from "./components/header";
 import Sidebar from "./components/Sidebar";
 import StudentsTable from "./components/StudentsTable";
 import useStore from './context/store';
